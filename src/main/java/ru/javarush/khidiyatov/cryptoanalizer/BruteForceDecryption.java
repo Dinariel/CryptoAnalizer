@@ -24,7 +24,7 @@ public class BruteForceDecryption {
     }
 
     public void run() {
-        List<String> textInput = null;
+        List<String> textInput;
         try {
             textInput = Files.readAllLines(encryptedFile);
         } catch (IOException e) {
