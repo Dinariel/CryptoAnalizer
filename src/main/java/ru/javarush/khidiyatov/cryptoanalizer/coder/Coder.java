@@ -69,10 +69,14 @@ public abstract class Coder {
         if (encodedIndex >= 0 && encodedIndex < ALPHABET.size()) {  // если индекс закодированного символа находится в диапазоне алфавита,
             return ALPHABET.get(encodedIndex);                      // то возвращаем индекс закодированного символа.
         }
-        encodedIndex = encodedIndex % ALPHABET.size();              // иначе берем остаток от деления индекса на размер алфавита
-        if (encodedIndex >= 0) {                                    // если индекс положительный,
-            return ALPHABET.get(encodedIndex);                      // то возвращаем его значение в алфавите
+        return aroundIndexToAlphabetSize(encodedIndex);
+    }
+
+    private static char aroundIndexToAlphabetSize(int encodedIndex) {
+        encodedIndex = encodedIndex % ALPHABET.size();
+        if (encodedIndex >= 0) {
+            return ALPHABET.get(encodedIndex);
         }
-        return ALPHABET.get(ALPHABET.size() + encodedIndex);        // если отрицательный, то высчитываем его из конца алфавита
+        return ALPHABET.get(ALPHABET.size() + encodedIndex);
     }
 }

@@ -43,7 +43,7 @@ public class BruteForceDecryption {
             int countMatch = 0;
             List<String> decodeList = decode(i, textInput);
             for (String line : decodeList) {
-                String[] split = line.split(".[.,;:!?]\\s");
+                String[] split = line.split(".[.,;:!?]\\s");    // ищем по шаблону специальный символ + " "
                 countMatch += split.length - 1;
             }
             if (countMatch > maxMatch) {
@@ -55,6 +55,9 @@ public class BruteForceDecryption {
     }
 
     //методы ниже были скопированы из класса Coder
+    //конечно, можно было их переопределить из класса Coder,
+    //но как то рука не поднялась взламывать шифр, наследуясь при этом
+    //классом шифратора
     private ArrayList<String> decode(int key, List<String> textInput) {
         ArrayList<String> textOutput = new ArrayList<>();
         for (String line : textInput) {
@@ -80,10 +83,14 @@ public class BruteForceDecryption {
         if (encodedIndex >= 0 && encodedIndex < ALPHABET.size()) {  // если индекс закодированного символа находится в диапазоне алфавита,
             return ALPHABET.get(encodedIndex);                      // то возвращаем индекс закодированного символа.
         }
-        encodedIndex = encodedIndex % ALPHABET.size();              // иначе берем остаток от деления индекса на размер алфавита
-        if (encodedIndex >= 0) {                                    // если индекс положительный,
-            return ALPHABET.get(encodedIndex);                      // то возвращаем его значение в алфавите
+        return aroundIndexToAlphabetSize(encodedIndex);
+    }
+
+    private static char aroundIndexToAlphabetSize(int encodedIndex) {
+        encodedIndex = encodedIndex % ALPHABET.size();
+        if (encodedIndex >= 0) {
+            return ALPHABET.get(encodedIndex);
         }
-        return ALPHABET.get(ALPHABET.size() + encodedIndex);        // если отрицательный, то высчитываем его из конца алфавита
+        return ALPHABET.get(ALPHABET.size() + encodedIndex);
     }
 }

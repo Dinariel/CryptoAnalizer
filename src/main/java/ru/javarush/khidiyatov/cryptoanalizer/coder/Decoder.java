@@ -7,6 +7,6 @@ public class Decoder extends Coder {
 
     @Override
     protected char encodedCharacter(char c, int key) {
-        return super.encodedCharacter(c, -key);
+        return super.encodedCharacter(c, -key);     // передаем отрицательный ключ (мы же дешифруем:))
     }
 }
